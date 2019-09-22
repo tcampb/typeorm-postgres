@@ -2,6 +2,8 @@ import "reflect-metadata";
 import { createConnection } from "typeorm";
 import { User } from "./entity/User";
 
+const QUERY_COUNT = 10;
+
 const findUser = conn =>
   conn.getRepository(User).findOne("1", {
     select: {
@@ -20,7 +22,7 @@ createConnection()
       lastName: "test"
     });
 
-    await Promise.all(new Array(10).fill(connection).map(findUser));
+    await Promise.all(new Array(QUERY_COUNT).fill(connection).map(findUser));
 
     console.log("query complete");
   })
